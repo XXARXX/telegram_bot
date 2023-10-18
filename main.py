@@ -23,9 +23,9 @@ def main():
     if args['subcommand'] == 'config':
         make_config(args, 'config.xml')
     elif args['subcommand'] == 'server':
-        debug = args.debug
-        ip = args.ip or '127.0.0.1'
-        port = int(args.port or 5000)
+        debug = args['debug']
+        ip = args['ip'] or '127.0.0.1'
+        port = int(args['port']) if args['port'] else 5000
 
         if debug:
             server.app.run(debug=True)
