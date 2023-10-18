@@ -28,7 +28,7 @@ def main():
         port = int(args['port']) if args['port'] else 5000
 
         if debug:
-            server.app.run(debug=True)
+            server.app.run(debug=True, host=ip, port=port)
         else:
             print('run server on {0}:{1} in production mode'.format(ip, port))
             serve(server.app, host=ip, port=port, threads=4)
