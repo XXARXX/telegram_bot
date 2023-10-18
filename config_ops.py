@@ -2,7 +2,8 @@ import xml.etree.ElementTree as ET
 
 def make_config(args, config_path = 'config.xml'):
     token = args['token']
-    debug = args.get('debug', False)
+    if not token:
+        raise ValueError('token must be present')
     root = ET.Element('config')
     tokenElem = ET.SubElement(root, 'token')
     tokenElem.text = token
