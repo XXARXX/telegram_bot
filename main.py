@@ -1,8 +1,10 @@
 import os
 import argparse
-from config_ops import make_config
-import server
+
 from waitress import serve
+
+import server
+from config_ops import make_config
 
 def main():
     parser = argparse.ArgumentParser(description= 'telegram bot')
