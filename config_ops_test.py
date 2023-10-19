@@ -9,9 +9,9 @@ class TestConfigOps(unittest.TestCase):
         assert token == 'test_token:2135_4fASDf'
     
     def test_config_make_config(self):
-        token = 'test_token:to_save12345'
-        config_ops.make_config(token, 'test_save_cfg.xml')
+        args = {'token': 'test_token:to_save12345'}
+        config_ops.make_config(args, 'test_save_cfg.xml')
         with open('test_save_cfg.xml') as f:
             data = f.read()
-            assert token in data
+            assert args['token'] in data
         os.remove('test_save_cfg.xml')
