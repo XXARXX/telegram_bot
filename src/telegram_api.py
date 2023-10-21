@@ -1,7 +1,7 @@
 from http import client
 import json
 
-from config_ops import load_token
+from .config_ops import load_token
 
 HOST = 'api.telegram.org'
 REQ_TEMPLATE = '/bot{token}/{api_method}{query}'

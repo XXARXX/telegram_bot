@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from telegram_api import TelegramApi
+from src.telegram_api import TelegramApi
 
 class TestTelegramApi(unittest.TestCase):
     def setUp(self):

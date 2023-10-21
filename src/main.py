@@ -3,14 +3,18 @@ import argparse
 
 from waitress import serve
 
-import server
-from config_ops import make_config
+from . import server
+from .config_ops import make_config
+from . import sql
 
 def main():
     parser = argparse.ArgumentParser(description= 'telegram bot')
     subparsers = parser.add_subparsers(required=True, dest='subcommand')
     # database
-    #database_parser = subparsers.add_parser('db', help='database related commands')
+    database_parser = subparsers.add_parser('db', help='database related commands')
+    database_parser.add_argument('-c', '--create', dest='dbname', required=False, help='create new database')
+    database_parser.add_argument('-i', '--insert', dest='row', action='store_true', help='insert row')
+    database_parser.add_argument('-g', '--get-status', dest='id')
     # config
     config_parser = subparsers.add_parser('config', help='config related commands')
     config_parser.add_argument('-t', '--token', required=True, help='telegram bot token')
@@ -35,6 +39,17 @@ def main():
         else:
             print('run server on {0}:{1} in production mode'.format(ip, port))
             serve(server.app, host=ip, port=port, threads=4)
+
+    elif args['subcommand'] == 'db':
+        dbname = args['dbname']
+        row = args['row']
+        msg_id = args['id']
+        if dbname:
+            sql.create_db('db/{0}'.format(dbname))
+        elif row:
+            sql.insert({'id': 'test', 'status': 'test'})
+        elif msg_id:
+            sql.get(msg_id)
 
 if __name__ == '__main__':
     main()

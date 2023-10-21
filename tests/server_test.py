@@ -1,6 +1,6 @@
 import unittest
 
-import server
+from src import server
 
 class TestServer(unittest.TestCase):
     def setUp(self):

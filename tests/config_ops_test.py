@@ -1,7 +1,7 @@
 import unittest
 import os
 
-import config_ops
+from src import config_ops
 
 class TestConfigOps(unittest.TestCase):
     def test_config_load_token(self):
