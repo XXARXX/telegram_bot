@@ -1,15 +1,16 @@
 from http import client
 import json
 
-from .config_ops import load_token
+from .config import load_config
 
 HOST = 'api.telegram.org'
 REQ_TEMPLATE = '/bot{token}/{api_method}{query}'
 
 # TODO: Consider custom exceptions
+# TODO: Remove debug level
 class TelegramApi:
     def __init__(self):
-        self.bot_token = load_token()
+        self.bot_token = load_config()['token']
         self.conn = client.HTTPSConnection(HOST)
         self.conn.set_debuglevel(3)
 

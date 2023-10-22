@@ -4,7 +4,7 @@ import argparse
 from waitress import serve
 
 from . import server
-from .config_ops import make_config
+from .config import make_config
 from . import sql
 
 def main():
@@ -26,6 +26,7 @@ def main():
 
 
     args = vars(parser.parse_args())
+    subcommand = args.pop('subcommand')
     if args['subcommand'] == 'config':
         make_config(args, 'config.xml')
 
