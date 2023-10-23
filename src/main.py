@@ -27,10 +27,10 @@ def main():
 
     args = vars(parser.parse_args())
     subcommand = args.pop('subcommand')
-    if args['subcommand'] == 'config':
+    if subcommand == 'config':
         make_config(args, 'config.xml')
 
-    elif args['subcommand'] == 'server':
+    elif subcommand == 'server':
         debug = args['debug']
         ip = args['ip'] 
         port = int(args['port'])
@@ -41,7 +41,7 @@ def main():
             print('run server on {0}:{1} in production mode'.format(ip, port))
             serve(server.app, host=ip, port=port, threads=4)
 
-    elif args['subcommand'] == 'db':
+    elif subcommand == 'db':
         dbname = args['dbname']
         row = args['row']
         msg_id = args['id']
