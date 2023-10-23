@@ -12,11 +12,10 @@ class TelegramApi:
     def __init__(self):
         self.bot_token = load_config()['token']
         self.conn = client.HTTPSConnection(HOST)
-        self.conn.set_debuglevel(3)
 
     def get_me(self):
         data = self._request('GET', 'getMe')
-        return data.get('result')
+        return data
 
     def send_message(self, chat_id, text):
         api_data = {
@@ -46,10 +45,10 @@ class TelegramApi:
 
         response = self.conn.getresponse()
         if response.status != 200:
-            raise Exception('request error {status}: {reason}'.format(status=response.status, reason=response.reason))
-        body = json.load(response)
-        if not body.get('ok'):
-            raise Exception('server return error {0}'.format(body))
+            print('request error {status}: {reason}'.format(status=response.status, reason=response.reason))
+        response.body = json.load(response)
+        if not response.body.get('ok'):
+            print('server return error {0}'.format(body))
 
         self.conn.close()
-        return body
+        return vars(response)
