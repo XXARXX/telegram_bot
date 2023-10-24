@@ -12,7 +12,7 @@ def main():
     subparsers = parser.add_subparsers(required=True, dest='subcommand')
     # database
     database_parser = subparsers.add_parser('db', help='database related commands')
-    database_parser.add_argument('-c', '--create', dest='dbname', help='create new database')
+    database_parser.add_argument('-c', '--create', dest='dbname', default='default.db', help='create new database')
     database_parser.add_argument('-g', '--get-status', dest='id')
     # config
     config_parser = subparsers.add_parser('config', help='config related commands')
