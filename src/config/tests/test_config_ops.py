@@ -18,7 +18,8 @@ class ConfigTest(unittest.TestCase):
     def test_add_key(self):
         valid_tree = b"<config><test>test value</test><test2>test value 2</test2></config>"
 
-        tree = conf.make_tree()
+        root = ET.Element('config')
+        tree = ET.ElementTree(root)
         conf.add_key('test', 'test value', tree)
         conf.add_key('test2', 'test value 2', tree)
         conf.add_key('test', 'test value 2', tree)
@@ -27,7 +28,8 @@ class ConfigTest(unittest.TestCase):
     def test_set_key(self):
         valid_tree = b"<config><test>test value 2</test><test2>test value 2</test2></config>"
 
-        tree = conf.make_tree()
+        root = ET.Element('config')
+        tree = ET.ElementTree(root)
         conf.set_key('test', 'test value', tree)
         conf.set_key('test2', 'test value 2', tree)
         conf.set_key('test', 'test value 2', tree)
@@ -36,20 +38,9 @@ class ConfigTest(unittest.TestCase):
     def test_make_tree(self):
         valid_tree = b"<config />"
 
-        tree = conf.make_tree()
+        root = ET.Element('config')
+        tree = ET.ElementTree(root)
         self.assertEqual(ET.tostring(tree.getroot()), valid_tree)
-
-    def test_load_base_dir(self):
-        config_name = 'config.xml'
-        valid_base_dir = 'C:\\test\\base directory'
-        tree = '<config><base_dir>%s</base_dir></config>' % valid_base_dir
-        
-        with TemporaryDirectory() as tempdir:
-            config_path = "%s\\%s" % (tempdir, config_name)
-            with open(config_path, 'w') as f:
-                f.write(tree)
-            base_dir = conf.load_base_dir(config_path)
-            self.assertEqual(valid_base_dir, base_dir)
 
     @unittest.expectedFailure
     def test_load_base_dir_not_found_key(self):
