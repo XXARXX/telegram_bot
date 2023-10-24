@@ -1,0 +1,1 @@
+from tests.test_manual_api import send_message, get_status, get_me
